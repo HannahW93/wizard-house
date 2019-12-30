@@ -37,12 +37,12 @@ function draw() {
     drawSceneZero()
   }
 
-   //scene one
+  //scene one
   if (sceneValue == 1) {
     drawSceneOne()
     drawRabbit(rabbitX, rabbitY)
 
-  //see if rabbit inside the rect
+    //see if rabbit inside the rect
     hitOne = pointInsideRect(rabbitX, rabbitY, 300, 580, 200, 50)
     //if so, activate scene 2 and reset x,y coord to (320,50)
     if (hitOne) {
@@ -55,7 +55,7 @@ function draw() {
 
   }
 
-//scene two
+  //scene two
 
   if (sceneValue == 2) {
 
@@ -67,9 +67,9 @@ function draw() {
       sceneTwoSkullX++
     }
     drawSkull(sceneTwoSkullX, 540, 20);
-    
+
     //if rabbit moves to this area, activate scene 3 and reset rabbit x,y coord to (210,50)
-    
+
     hitTwo = pointInsideRect(rabbitX, rabbitY, 250, 550, 100, 100)
     if (hitTwo) {
       sceneValue = 3
@@ -97,11 +97,17 @@ function draw() {
           fireFlame[i] = new flame();
         }
 
+        push();
+        textAlign(CENTER);
         fill('white');
         stroke('#070f24');
         strokeWeight(10);
-        textSize(50)
-        text("CONGRATULATIONS!", 50, 300)
+        textSize(50);
+        text("CONGRATULATIONS!", 300, 300);
+        textSize(20);
+        text("Press ENTER to restart",300,350);
+        pop();
+        
       }
     }
   }
@@ -285,21 +291,23 @@ function drawDesk() {
   push();
   stroke('#070f24');
   strokeWeight(10);
-  fill('#571406');
-  rect(width / 2, 180, 150, 60);
-  rect(width / 2, 130, 300, 80);
+  fill('#3e92b0');
+  rect(width / 2, 180, 150, 60,20,20,20,20);
+  fill('#7ed7f7');
+  rect(width / 2, 130, 300, 80,20,20,20,20);
   fill('#3e92b0');
   rect(130, 430, 100, 80, 20, 20, 20, 20)
   rect(470, 430, 100, 80, 20, 20, 20, 20)
   fill('#7ed7f7');
   rect(130, 410, 100, 80, 20, 20, 20, 20)
   rect(470, 410, 100, 80, 20, 20, 20, 20)
+  noStroke();
   fill('#070f24');
   rect(width / 2, 130, 120, 60, 10, 10, 10, 10)
-  noStroke();
   fill('white');
   textSize(20);
-  text("COLLECT", 255, 135)
+  textAlign(CENTER);
+  text("GO AHEAD", 300 , 135)
   fill('#7ed7f7');
 
   pop();
@@ -509,8 +517,29 @@ function keyPressed() {
   }
 
   if (keyCode === ENTER) {
-    sceneValue = 1
+    if (sceneValue == 0) {
+      sceneValue = 1
+    }
+
+    if (sceneValue == 3) {
+      sceneValue = 0;
+      rabbitX = 500
+      rabbitY = 300
+      smallestX = 600;
+      hitOne = false
+      sceneTwoSkullX = 260
+      hitTwo = false
+      win = 0
+
+      hitSceneOneAreaA = false
+      hitSceneOneAreaB = false
+      hitSceneTwoAreaA = false
+      hitSceneTwoAreaB = false
+      hitSceneThreeAreaA = false
+      hitSceneThreeAreaB = false
+    }
   }
+
 
 }
 
@@ -534,4 +563,3 @@ class flame {
   }
 
 }
-
